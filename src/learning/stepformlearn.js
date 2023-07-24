@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { Stepper, Step, StepLabel, Button } from "@mui/material";
-import DynamicForm from "./DynamicForm"; // Import the DynamicForm component
-import FormBuilder from "../component2/FormBuilder";
-import FieldSidebar from "../component2/FieldSidebar";
+import { Stepper, Step, StepLabel, Button, TextField } from "@mui/material";
 
-const StepForm3 = () => {
+const Stepformlearn = () => {
   const [activeStep, setActiveStep] = useState(1);
-  const [totalSteps, setTotalSteps] = useState(4); // Initialize with 4 steps
-  const steps = Array.from(
-    { length: totalSteps },
-    (_, index) => `Step ${index + 1}`
+  const [totalSteps, setTotalSteps] = useState(4);
+  const [stepNames, setStepNames] = useState(
+    Array.from({ length: totalSteps }, (_, index) => `Step ${index + 1}`)
   );
 
   const messages = [
-    "Hello", // Message for Step 1
-    "Hyy", // Message for Step 2
-    "Gooo", // Message for Step 3
+    "vaibhav",
+    "kavita", 
+    "Gooo", 
   ];
 
   const nextStep = () => {
@@ -32,30 +28,40 @@ const StepForm3 = () => {
 
   const addStep = () => {
     setTotalSteps((currentTotalSteps) => currentTotalSteps + 1);
+    setStepNames((currentStepNames) => [
+      ...currentStepNames,
+      `Step ${totalSteps + 1}`,
+    ]);
+  };
+
+  const handleStepNameChange = (number , newName) => {
+    const updatedStepNames = [...stepNames];
+    updatedStepNames[number] = newName;
+    setStepNames(updatedStepNames);
   };
 
   return (
-    <div className=" container" >
+    <div className=" container">
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, index) => (
+        {stepNames.map((label, index) => (
           <Step key={index}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel>
+              <input
+                label={`Step ${index + 1}`}
+                value={label}
+                onChange={(e) => handleStepNameChange(index, e.target.value)}
+                variant="outlined"
+                style={{border:"none"}}
+                className="w-50"
+              />
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
       <div>
-        {activeStep === 0 && <DynamicForm />} {/* Show DynamicForm on Step 1 */}
-        {activeStep === 1 && (
-          <>
-            {" "}
-            <FieldSidebar />
-             {/* <FormBuilder /> */}
-          </>
-        )}{" "}
-        {/* Show DynamicForm on Step 1 */}
+        {/* Show DynamicForm on Step 2 */}
         {activeStep === 2 && <p>{messages[1]}</p>}
         {activeStep === 3 && <p>{messages[2]}</p>}
-        {/* Add more conditions for additional steps if needed */}
       </div>
       <div className="d-flex justify-content-center">
         <Button
@@ -63,7 +69,7 @@ const StepForm3 = () => {
           style={{ color: "green", margin: "10px" }}
           onClick={backStep}
         >
-          Prives Step
+          Previous Step
         </Button>
         <br />
         <br />
@@ -90,4 +96,5 @@ const StepForm3 = () => {
   );
 };
 
-export default StepForm3;
+
+export default Stepformlearn;

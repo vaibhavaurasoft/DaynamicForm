@@ -112,15 +112,25 @@
 // }
 
 import React from 'react'
+import { Routes, Route, useLocation } from "react-router-dom";
+import Stepformlearn from './learning/stepformlearn';
+import FieldSidebar from './component2/FieldSidebar';
 // import HorizontalNonLinearStepper from './componet/step'
 // import StepForm from './componet/step'
 // import StepForm2 from './componet/step2';
-import StepForm3 from './testing/StepForm3';
+import Dragdropsiderbar from './learning/dragdropsiderbar';
+import StepForm3 from './working/StepForm3';
 function App() {
   return (
     <>
+      <Routes>
+        <Route path="/" element={<StepForm3 />}></Route>
+        <Route path="/siderbar" element={<FieldSidebar />}></Route>
+
+        <Route path="/stepfromlearn" element={<Stepformlearn />}></Route>
+        <Route path="/dragsidebarlearn" element={<Dragdropsiderbar />}></Route>
+      </Routes>
       {/* <StepForm /> */}
-      <StepForm3 />
     </>
   );
 }
