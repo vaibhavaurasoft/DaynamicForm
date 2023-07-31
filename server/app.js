@@ -3,6 +3,10 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
+const Step =  require("./routes/step")
+const Layout = require("./routes/formLayoutRoutes.js");
+const saveFormData = require("./routes/formDataRoutes.js");
+
 
 
 const app = express();
@@ -13,10 +17,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-const Layout = require("./routes/formLayoutRoutes")
-
-app.use("/",Layout)
+app.use("/",Step)
+app.use("/", Layout);
+app.use("/", saveFormData);
 
 
 module.exports = app;
